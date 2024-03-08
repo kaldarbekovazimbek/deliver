@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bank_cards', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedInteger('card_number')->unsigned();
+            $table->unsignedBigInteger('card_number')->unsigned();
             $table->decimal('balance', 20,2);
             $table->timestamps();
         });

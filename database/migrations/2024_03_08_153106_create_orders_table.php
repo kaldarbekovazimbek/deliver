@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('restaurant_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('courier_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('courier_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('address');
-            $table->dateTime('ordered_at');
             $table->string('status')->default('in process');
             $table->decimal('total_price', 10,2);
-            $table->dateTime('delivered_at');
+            $table->timestamps();
+
         });
     }
 

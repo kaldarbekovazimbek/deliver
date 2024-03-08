@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('menu_item_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedInteger('quantity');
             $table->decimal('price', 10,2);
+            $table->timestamps();
         });
     }
 

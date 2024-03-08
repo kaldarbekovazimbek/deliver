@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->boolean('status');
+            $table->string('status')->default('free');
             $table->string('password');
             $table->timestamps();
         });
