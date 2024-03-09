@@ -3,10 +3,8 @@
 namespace App\Exceptions;
 
 use Exception;
-use http\Env\Response;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
-use Throwable;
 
 class NotFoundException extends Exception
 {

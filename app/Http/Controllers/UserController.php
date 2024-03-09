@@ -8,10 +8,10 @@ use App\Exceptions\NotFoundException;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\User\UserCollection;
 use App\Http\Resources\User\UserResource;
-use App\Models\User;
 use App\Services\User\UserCreateService;
 use App\Services\User\UserService;
 use App\Services\User\UserUpdateService;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -71,7 +71,7 @@ class UserController extends Controller
     /**
      * @throws NotFoundException
      */
-    public function destroy(int $userId)
+    public function destroy(int $userId): JsonResponse
     {
         $user = $this->userService->getUserById($userId);
 
