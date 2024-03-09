@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,5 @@ Route::post('users', [UserController::class, 'store']);
 Route::get('users/{userId}', [UserController::class, 'show']);
 Route::put('users/{userId}', [UserController::class, 'update']);
 Route::delete('users/{userId}', [UserController::class, 'destroy']);
+
+Route::get('users/{userId}/orders', [UserController::class, 'getUserOrders']);

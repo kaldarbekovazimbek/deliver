@@ -2,65 +2,84 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\User\UserDTO;
+use App\Exceptions\ExistsObjectException;
+use App\Exceptions\NotFoundException;
 use App\Http\Requests\UserRequest;
-use App\Http\Resources\UserCollection;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\User\UserCollection;
+use App\Http\Resources\User\UserResource;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\User\UserCreateService;
+use App\Services\User\UserService;
+use App\Services\User\UserUpdateService;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct(
+        private UserCreateService $userCreateService,
+        private UserUpdateService $userUpdateService,
+        private UserService       $userService,
+
+    )
     {
-        $users = User::all();
+    }
+
+    /**
+     * @throws NotFoundException
+     */
+    public function index(): UserCollection
+    {
+        $users = $this->userService->getAll();
 
         return new UserCollection($users);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @throws ExistsObjectException
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $request): UserResource
     {
         $validData = $request->validated();
 
-        $user = User::query()->create($validData);
+        $user = $this->userCreateService->createUser(UserDTO::fromArray($validData));
 
         return new UserResource($user);
     }
 
     /**
-     * Display the specified resource.
+     * @throws NotFoundException
      */
     public function show(int $userId): UserResource
     {
+        $user = $this->userService->getUserById($userId);
 
-        $user = User::query()->find($userId)->first();
         return new UserResource($user);
     }
 
     /**
-     * Update the specified resource in storage.
+     * @throws ExistsObjectException
      */
     public function update(UserRequest $request, int $userId): UserResource
     {
         $validData = $request->validated();
-        $user = User::query()->find($userId)->first();
-        $user->update($validData);
+
+        $user = $this->userUpdateService->updateUser($userId, UserDTO::fromArray($validData));
 
         return new UserResource($user);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @throws NotFoundException
      */
     public function destroy(int $userId)
     {
-        $user = User::query()->find($userId);
+        $user = $this->userService->getUserById($userId);
 
         $user->delete();
+
+        return response()->json([
+            'message' => 'object was deleted',
+        ]);
     }
+
 }
