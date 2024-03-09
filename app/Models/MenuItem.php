@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use newrelic\DistributedTracePayload;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id,
@@ -26,4 +27,13 @@ class MenuItem extends Model
         'price',
     ];
 
+    public function orders():BelongsToMany
+    {
+        return  $this->belongsToMany(Order::class, 'order_items');
+    }
+
+    public function restaurant():BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
 }

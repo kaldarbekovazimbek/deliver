@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * @property int $id,
@@ -30,4 +34,24 @@ class Order extends Model
         'total_price',
         'delivered_at'
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function restaurant():BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
+
+    public function courier():BelongsTo
+    {
+        return $this->belongsTo(Courier::class);
+    }
+
+    public function menuItem(): BelongsToMany
+    {
+        return $this->belongsToMany(OrderItem::class, 'order_items');
+    }
 }

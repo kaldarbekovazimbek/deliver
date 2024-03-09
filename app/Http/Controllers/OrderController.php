@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\OrderCollection;
+use App\Http\Resources\OrderResource;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -10,9 +12,11 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): OrderCollection
     {
-        //
+        $orders = Order::all();
+
+        return new OrderCollection($orders);
     }
 
     /**
@@ -20,7 +24,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
