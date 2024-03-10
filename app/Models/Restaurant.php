@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * @property int $id,
  * @property string $name,
- * @property string $address,
- * @property string $phone,
+ * @property string $email,
+ * @property string $password,
  */
 class Restaurant extends Model
 {
@@ -19,8 +19,9 @@ class Restaurant extends Model
 
     protected $fillable = [
         'name',
+        'email',
         'address',
-        'phone',
+        'password'
     ];
 
     public function menuItems():HasMany

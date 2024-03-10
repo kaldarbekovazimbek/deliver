@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id,
  * @property string $name,
  * @property string $email,
- * @property string $phone,
  * @property boolean $status,
  * @property string $password,
  */
@@ -20,7 +19,6 @@ class Courier extends Model
     protected $fillable = [
         'name',
         'email',
-        'phone',
         'status',
         'password'
     ];

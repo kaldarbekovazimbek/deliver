@@ -26,9 +26,14 @@ class CourierFactory extends Factory
         return [
             'name' => $this->faker->name,
             'email' => $this->faker->safeEmail,
-            'phone' => $this->faker->phoneNumber,
 //            'staus'=>$this->faker->
             'password' => static::$password ??= Hash::make('password'),
         ];
+    }
+    public function unverified(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'email_verified_at' => null,
+        ]);
     }
 }

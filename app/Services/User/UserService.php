@@ -4,6 +4,7 @@ namespace App\Services\User;
 
 use App\Exceptions\NotFoundException;
 use App\Interfaces\IUserRepository;
+use App\Models\User;
 use function PHPUnit\Framework\isEmpty;
 
 class UserService
@@ -32,7 +33,7 @@ class UserService
     /**
      * @throws NotFoundException
      */
-    public function getUserById(int $userID)
+    public function getUserById(int $userID): User
     {
         $user = $this->userRepository->getUserById($userID);
 
